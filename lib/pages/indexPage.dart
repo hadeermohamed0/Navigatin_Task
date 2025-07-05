@@ -18,10 +18,14 @@ class IndexPage extends StatelessWidget {
             body: page(state, context),
             bottomNavigationBar: NavigationBar(
               selectedIndex: selectIndex,
-              height: 70,
+              height: MediaQuery.of(context).size.height * 0.10,
               onDestinationSelected: (index) {
                 context.read<NavCubit>().changeTab(index);
               },
+                backgroundColor:Colors.grey,
+                 indicatorShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+          ),
               destinations: [
                 NavigationDestination(
                   icon: Icon(Icons.account_circle_outlined),

@@ -1,14 +1,13 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../cubit/nav_cubit.dart';
 
 int currentIndex(NavState state) {
-  if (state is NavInitial) return 0;
-  if (state is NavPage2) return 1;
-  if (state is NavPage3) return 2;
+  //عشان احافظ ع الايكون متتغيرش
+  if (state is NavInitial|| state is NavPage1_1) return 0;
+  if (state is NavPage2 ||state is NavPage2_2) return 1;
+  if (state is NavPage3||state is NavPage3_3) return 2;
   return 0;
 }
 
@@ -30,7 +29,8 @@ Widget page(NavState state, BuildContext context) {
     );
   } else if (state is NavPage2) {
     return Center(
-      child: Column(
+      child:
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(" Calls Page"),
