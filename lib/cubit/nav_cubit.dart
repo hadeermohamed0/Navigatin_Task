@@ -3,8 +3,11 @@ part 'nav_state.dart';
 
 class NavCubit extends Cubit<NavState> {
   NavCubit() : super(NavInitial());
-
+  int currentIndex = 0;
   void changeTab(int index) {
+    if (index < 3) {
+      currentIndex = index;
+    }
     switch (index) {
       case 0:
         emit(NavInitial());

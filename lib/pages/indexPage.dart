@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/nav_cubit.dart';
 import '../utilities/functions.dart';
-
+import 'logoutPage.dart';
 class IndexPage extends StatelessWidget {
   const IndexPage({super.key});
 
@@ -10,14 +10,46 @@ class IndexPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => NavCubit(),
-      child: BlocBuilder<NavCubit, NavState>(
+      child: BlocBuilder<NavCubit,NavState>(
         builder: (context, state) {
-          int selectIndex = currentIndex(state);
 
           return Scaffold(
+            appBar: AppBar(
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LogoutPage()),
+                      );
+                    },
+
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent, // Button color
+
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      elevation: 5,
+                    ),
+                    child:  Text(
+                      "Log Out",
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
             body: page(state, context),
             bottomNavigationBar: NavigationBar(
-              selectedIndex: selectIndex,
+              selectedIndex: context.watch<NavCubit>().currentIndex,
               height: MediaQuery.of(context).size.height * 0.10,
               onDestinationSelected: (index) {
                 context.read<NavCubit>().changeTab(index);
